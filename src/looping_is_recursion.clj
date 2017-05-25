@@ -56,8 +56,20 @@
         rst))))
 
 (defn fast-fibo [n]
-  ":(")
+  (loop [i 1
+         f_n-1 0
+         f_n 1]
+    (cond (= n 0) 0
+          (= n 1) 1
+          (= i n) f_n
+          :else (recur (inc i) f_n (+ f_n-1 f_n)))))
 
 (defn cut-at-repetition [a-seq]
-  [":("])
+  (loop [s (hash-set)
+         coll a-seq]
+    (let [[a & rest] coll]
+      (cond
+        (nil? a) (take (count s) a-seq)
+        (contains? s a) (take (count s) a-seq)
+        :else (recur (conj s a) rest)))))
 
